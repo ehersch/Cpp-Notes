@@ -243,3 +243,13 @@ Pointer syntax: `p->x` is same as `(*p).x` (for classes)
 Pointer checks?
 `if (!p) {...} // pointer null check`
 `if (!x) {...} // boolean false`
+
+**Some trivia:**
+
+> `Pointers vs. References:` A pointer stores a memory address and can be null or reassigned, while a reference is an alias for an existing object and cannot be null or reassigned after initialization.
+
+> `Stack vs. Heap Memory:` Memory on the stack is allocated and deallocated automatically as variables go in and out of scope. Heap memory is dynamically managed using new and delete (or smart pointers) and persists until explicitly deallocated, offering more control but requiring careful management.
+
+> `const` and `static` keywords: const makes a variable or object immutable after initialization. `static` changes the storage duration for local variables (persisting across function calls) or limits the visibility of global variables and functions to the current file.
+
+> `this` pointer: A hidden pointer in non-static member functions that points to the current object instance, used to access members or return the object itself.
