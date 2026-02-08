@@ -49,21 +49,24 @@ void f(int i, int j) // X* vs. unique_ptr<X>
 
 (check TB)
 
-> The idea is want to minimize `new`. `new` allocated data on the heap. Not using `new` will allocate data on the stack (not on free storage). 
+> The idea is want to minimize `new`. `new` allocated data on the heap. Not using `new` will allocate data on the stack (not on free storage).
 
 Example:
 
 `auto p = new Object(s);`
+
 - Here, `p` is a pointer `Object*` and `Object(s)` is allocated on the heap
 - Would require `delete`, manual lifetime
 
 `auto p = Object(s);`
+
 - `p` is an object on the stack
 - Lifetime is tied to scope, don't need `delete`
 
 The best modern C++ practice:
 
 `auto c = std::make_unique<Object>(s);  // heap, safe ownership`
+
 - Allocated an `Object` on the heap (internally calls `new Object(s)`)
 - Wraps the pointer in a `std::unique_ptr<Object>`, so `c` is not an `Object*`... `c` is a smart pointer that _owns_ the object
 
@@ -129,6 +132,7 @@ Can initialize with integer or string
 bitset<9> bs1 {"110001111"};
 bitset<9> bs2 {399}
 ```
+
 Can also use bitwise operations (`<<` `>>`)
 
 ```
@@ -157,7 +161,7 @@ The elements of `tuple` are numbered, rather than named the way elements of `pai
 ## Time
 
 ```
-using namespace std::chrono; 
+using namespace std::chrono;
 auto t0 = high_resolution_clock::now();
 do_work();
 auto t1 = high_resolution_clock::now();
@@ -188,6 +192,7 @@ auto g = bind(f,2,_1); // bind f()'s first argument to 2
 f(2, "hello");
 g("hello"); // also calls f(2, "hello")
 ```
+
 The `_1` argument to the binder is a placeholder telling `bind()` where arguments to the resulting function object should go. `g()`'s first argument is used as `f()`'s second
 
 ```
@@ -270,7 +275,7 @@ bool b1 = Is_arithmetic<int>(); // yes, int is an arithmetic type
 bool b2 = Is_arithmetic<string>(); // no, std::str ing is not an arithmetic typ
 ```
 
-Found in `<type_traits>`. Other examples: `is_class`, `is_pod`,   `is_literal_type`, `has_virtual_destructor`, `is_base_of`
+Found in `<type_traits>`. Other examples: `is_class`, `is_pod`, `is_literal_type`, `has_virtual_destructor`, `is_base_of`
 
 > `static_assert(Is_arithmetic<Scalar>()` vs `return std::Is_arithmetic<T>::value`
 
