@@ -253,3 +253,13 @@ Pointer checks?
 > `const` and `static` keywords: const makes a variable or object immutable after initialization. `static` changes the storage duration for local variables (persisting across function calls) or limits the visibility of global variables and functions to the current file.
 
 > `this` pointer: A hidden pointer in non-static member functions that points to the current object instance, used to access members or return the object itself.
+
+> Smart Pointers: The difference between `std::unique_ptr`, `std::shared_ptr`, and `std::weak_ptr`, and how they are used for automatic memory management (RAII) to prevent leaks.
+
+> `std::unique_ptr`: Use as the default for most scenarios where an object has a clear, single owner. It is as efficient as a raw pointer and prevents multiple entities from trying to manage the same memory.
+
+> `std::shared_ptr`: Use when ownership is genuinely distributed, such as in complex graph structures or multi-threaded scenarios where several components need to keep an object alive.
+
+> `std::weak_ptr`: Primarily used to break circular references. If two shared_ptr objects point to each other, their reference counts will never reach zero, causing a leak. Replacing one with a weak_ptr allows the cycle to be broken. It must be "locked" into a shared_ptr via lock() to safely access the data.
+
+**Smart pointers prevent leaks by tying the resource's lifetime to the stack-based pointer's lifetime. When the pointer variable is popped off the stack (even due to an exception), its destructor automatically calls delete on the managed heap memory.**
